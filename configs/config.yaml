@@ -1,0 +1,43 @@
+system:
+  name: "Big Data Based Multimodal Fake News & Image Manipulation Detection System"
+  version: "1.0.0"
+  environment: "production"
+
+database:
+  db_path: "database/fakenews_system.db"
+  echo_sql: false
+
+data:
+  demo_dataset_size: 100
+  image_size: [224, 224]
+  max_text_length: 128
+
+models:
+  tfidf:
+    max_features: 5000
+    ngram_range: [1, 2]
+    c_param: 1.0
+  bert:
+    model_name: "bert-base-uncased"
+    batch_size: 8
+    learning_rate: 2.0e-5
+    epochs: 3
+  resnet:
+    pretrained: true
+    num_classes: 2
+  gat:
+    in_channels: 16
+    hidden_channels: 32
+    out_channels: 2
+    heads: 4
+    dropout: 0.2
+
+fusion:
+  weights:
+    text: 0.40
+    image: 0.35
+    graph: 0.25
+
+news_api:
+  api_key: ""
+  endpoint: "https://newsapi.org/v2/top-headlines"
